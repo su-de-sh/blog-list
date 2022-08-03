@@ -1,0 +1,13 @@
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+
+{
+    "title": "Atomic habbits",
+  "author": "Subash",
+  "url": "sommeurl.com",
+  "likes": 9
+}
+
+
+###
+GET http://localhost:3003/api/blogs
