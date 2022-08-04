@@ -23,4 +23,24 @@ const favoriteBlog = (blogs) => {
   return { title: favBlog.title, author: favBlog.author, likes: favBlog.likes };
 };
 
-module.exports = { dummy, totalLikes, favoriteBlog };
+const mostBlogs = (blogs) => {
+  if (!blogs.length) return null;
+
+  const hashMap = {};
+
+  blogs.forEach((blog) => {
+    if (!hashMap[blog.author]) {
+      hashMap[blog.author] = 1;
+    } else {
+      hashMap[blog.author]++;
+    }
+  });
+
+  let authorWithMostBlogs = Object.keys(hashMap).reduce((a, b) =>
+    hashMap[a] > hashMap[b] ? a : b
+  );
+
+  return { author: authorWithMostBlogs, blogs: hashMap[authorWithMostBlogs] };
+};
+
+module.exports = { dummy, totalLikes, favoriteBlog, mostBlogs };
