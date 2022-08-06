@@ -48,6 +48,24 @@ describe("api requests", () => {
   });
 });
 
+test("creates a blog post successfully", async () => {
+  const blog = {
+    title: "whatever",
+    author: "Suraj dai",
+    url: "somemor.com",
+    likes: 100,
+  };
+  await api
+    .post("/api/blogs")
+    .send(blog)
+    .expect(201)
+    .expect("Content-Type", /application\/json/);
+  const response = await api.get("/api/blogs");
+  const content = response.body.map((blog) => blog.title);
+
+  expect(content).toContain("whatever");
+});
+
 afterAll(() => {
   mongoose.connection.close();
 });
