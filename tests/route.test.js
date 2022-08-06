@@ -61,9 +61,26 @@ test("creates a blog post successfully", async () => {
     .expect(201)
     .expect("Content-Type", /application\/json/);
   const response = await api.get("/api/blogs");
-  const content = response.body.map((blog) => blog.title);
+  const title = response.body.map((blog) => blog.title);
 
-  expect(content).toContain("whatever");
+  expect(title).toContain("whatever");
+});
+
+test("creates a blog post successfully even if like is missing", async () => {
+  const blog = {
+    title: "Hosting react app to github",
+    author: "sudesh",
+    url: "sushcodes.me",
+  };
+  await api
+    .post("/api/blogs")
+    .send(blog)
+    .expect(201)
+    .expect("Content-Type", /application\/json/);
+  const response = await api.get("/api/blogs");
+  const likes = response.body.map((blog) => blog.likes);
+
+  expect(likes).toContain(0);
 });
 
 afterAll(() => {

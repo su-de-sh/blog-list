@@ -6,6 +6,9 @@ blogRouter.get("/", (req, res) => {
 });
 
 blogRouter.post("/", (req, res) => {
+  if (req.body.likes === undefined) {
+    req.body.likes = 0;
+  }
   const blog = new Blog(req.body);
   blog.save().then((data) => res.status(201).json(data));
 });
