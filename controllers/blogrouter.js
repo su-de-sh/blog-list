@@ -13,10 +13,17 @@ blogRouter.post("/", async (req, res) => {
   }
   if (!(req.body.title && req.body.url)) {
     res.status(400).end();
+  } else {
+    const blog = new Blog(req.body);
+    const data = await blog.save();
+    res.status(201).json(data);
   }
-  const blog = new Blog(req.body);
-  const data = await blog.save();
-  res.status(201).json(data);
+});
+
+blogRouter.delete("/:id", async (req, res) => {
+  const id = req.params.id;
+  await Blog.findByIdAndRemove(id);
+  res.status(204).end();
 });
 
 module.exports = blogRouter;
