@@ -2,7 +2,7 @@ const blogRouter = require("express").Router();
 const Blog = require("../models/blog");
 
 blogRouter.get("/", (req, res) => {
-  Blog.find().then((data) => res.status(200).send(data));
+  Blog.find().then((data) => res.status(200).json(data));
 });
 
 blogRouter.post("/", (req, res) => {

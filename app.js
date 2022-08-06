@@ -6,7 +6,9 @@ const mongoose = require("mongoose");
 const blogRouter = require("./controllers/blogrouter");
 
 const mongoUrl = config.MONGODB_URI;
-mongoose.connect(mongoUrl);
+mongoose.connect(mongoUrl).then(() => {
+  console.log("MongoDb connected");
+});
 
 app.use(cors());
 app.use(express.json());

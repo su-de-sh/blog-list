@@ -1,10 +1,12 @@
+/* eslint-disable */
+
 require("dotenv").config();
 
-const config = {
-  // eslint-disable-next-line
-  PORT: process.env.PORT,
-  // eslint-disable-next-line
-  MONGODB_URI: process.env.MONGODB_URI,
-};
+const PORT = process.env.PORT;
 
-module.exports = config;
+const MONGODB_URI =
+  process.env.NODE_ENV === "test"
+    ? process.env.TEST_MONGODB_URI
+    : process.env.MONGODB_URI;
+
+module.exports = { PORT, MONGODB_URI };
