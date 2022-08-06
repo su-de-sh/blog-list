@@ -1,4 +1,3 @@
-/*eslint-disable */
 const supertest = require("supertest");
 const app = require("../app");
 const mongoose = require("mongoose");
@@ -45,7 +44,7 @@ describe("api requests", () => {
   test("id to be defined", async () => {
     const response = await api.get("/api/blogs");
 
-    expect(response.body[0]._id).toBeDefined();
+    expect(response.body[0].id).toBeDefined();
   });
 });
 
