@@ -83,6 +83,15 @@ test("creates a blog post successfully even if like is missing", async () => {
   expect(likes).toContain(0);
 });
 
+test("400 Bad request if title and url is missing", async () => {
+  const blog = {
+    author: "sudesh",
+
+    likes: 15,
+  };
+  await api.post("/api/blogs").send(blog).expect(400);
+});
+
 afterAll(() => {
   mongoose.connection.close();
 });
