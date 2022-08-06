@@ -103,6 +103,22 @@ describe("api requests", () => {
 
     expect(remainingTitle).not.toContain("Atomic habbits");
   }, 100000);
+
+  test("update likes of specific blog", async () => {
+    const blog = await Blog.find({ title: "Atomic habbits" });
+    const data = {
+      title: blog[0].title,
+      author: blog[0].author,
+      url: blog[0].url,
+      likes: 10,
+    };
+
+    await api.put(`/api/blogs/${blog[0].id}`).send(data).expect(200);
+
+    const updatedBlog = await Blog.find({ title: "Atomic habbits" });
+
+    expect(updatedBlog[0].likes).toBe(10);
+  });
 });
 
 afterAll(() => {
