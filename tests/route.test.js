@@ -41,6 +41,12 @@ describe("api requests", () => {
     const response = await api.get("/api/blogs");
     expect(response.body.length).toBe(initialBlogs.length);
   });
+
+  test("id to be defined", async () => {
+    const response = await api.get("/api/blogs");
+
+    expect(response.body[0]._id).toBeDefined();
+  });
 });
 
 afterAll(() => {
