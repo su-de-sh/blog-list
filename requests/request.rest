@@ -1,12 +1,33 @@
-POST http://localhost:3001/api/blogs
+###
+POST http://localhost:3001/api/users
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJlYWN0IiwiaWQiOiI2MmYyOWFmYWE5OTI5ZWEwYTBmNTM2YTciLCJpYXQiOjE2NjAwNjY1NzZ9.MOUvYHQD3VDcmubid3luLH9nZm8I0GvSJdKINBJPqkw
 
 {
-    "title":"How to win people and win friends",
-    "author":"Dale Carnegie",
-    "url":"winpeople.com",
-    "likes":1110
+    "username":"raju",
+    "name":"Raju Lama",
+    "password":"raju@123"
+}
+
+###
+POST http://localhost:3001/api/login
+Content-Type: application/json
+
+{
+    "username":"raju",
+    "name":"Raju Lama",
+    "password":"raju@123"
+}
+
+###
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJhanUiLCJpZCI6IjYyZjJhNjc5NTBiZWM0MDcwOGMwMGUxNCIsImlhdCI6MTY2MDA2OTU3NH0.hMZ5a-6yXSEdzTefA2zJHmcSz-mTGmlY6VJPFtsNF6c
+
+{
+    "title":"Tin Ghumti",
+    "author":"Bisweshwor Pd. Koirala",
+    "url":"bp.com",
+    "likes":1230
 }
 
 
@@ -15,11 +36,4 @@ GET http://localhost:3001/api/blogs
 
 
 ###
-POST http://localhost:3001/api/login
-Content-Type: application/json
-
-{
-    "username":"react",
-    "name":"React",
-    "password":"react123"
-}
+GET http://localhost:3001/api/users
