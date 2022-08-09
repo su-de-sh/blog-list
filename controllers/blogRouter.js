@@ -14,27 +14,18 @@ blogRouter.get("/", async (req, res, next) => {
   }
 });
 
-const getTokenFrom = (request) => {
-  const authorization = request.get("authorization");
-  if (authorization && authorization.toLowerCase().startsWith("bearer ")) {
-    return authorization.substring(7);
-  }
-  return null;
-};
-
 blogRouter.post("/", async (req, res, next) => {
   try {
     if (req.body.likes === undefined) {
       req.body.likes = 0;
     }
-    const alreadyExists = await Blog.find({ title: req.body.title });
-    if (alreadyExists.length > 0) {
+    const blogs = await Blog.find({ title: req.body.title });
+    if (blogs.length > 0) {
       res.status(400).json({ error: "Blog already exists" });
-    }
-    if (!(req.body.title && req.body.url)) {
+    } else if (!(req.body.title && req.body.url)) {
       res.status(400).json({ error: " title and url are required" });
     } else {
-      const token = getTokenFrom(req);
+      const token = req.token;
       const decodedToken = jwt.verify(token, config.SECRET);
       if (!decodedToken.id) {
         res.status(401).json({ error: "token missing or invalid" });

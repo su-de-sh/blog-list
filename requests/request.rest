@@ -24,10 +24,10 @@ Content-Type: application/json
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJhanUiLCJpZCI6IjYyZjJhNjc5NTBiZWM0MDcwOGMwMGUxNCIsImlhdCI6MTY2MDA2OTU3NH0.hMZ5a-6yXSEdzTefA2zJHmcSz-mTGmlY6VJPFtsNF6c
 
 {
-    "title":"Tin Ghumti",
-    "author":"Bisweshwor Pd. Koirala",
-    "url":"bp.com",
-    "likes":1230
+    "title":"Power of subconsious mind",
+    "author":"unknown",
+    "url":"posm.com",
+    "likes":1900
 }
 
 
