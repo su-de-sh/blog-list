@@ -5,6 +5,7 @@ const config = require("./utils/config");
 const mongoose = require("mongoose");
 const blogRouter = require("./controllers/blogRouter");
 const userRouter = require("./controllers/userRouter");
+const loginRouter = require("./controllers/loginRouter");
 
 const mongoUrl = config.MONGODB_URI;
 mongoose.connect(mongoUrl).then(() => {
@@ -17,4 +18,5 @@ app.use(express.json());
 
 app.use("/api/blogs", blogRouter);
 app.use("/api/users", userRouter);
+app.use("/api/login", loginRouter);
 module.exports = app;
