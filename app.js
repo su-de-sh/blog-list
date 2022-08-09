@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const blogRouter = require("./controllers/blogRouter");
 const userRouter = require("./controllers/userRouter");
 const loginRouter = require("./controllers/loginRouter");
+const middleware = require("./utils/middleware");
 
 const mongoUrl = config.MONGODB_URI;
 mongoose.connect(mongoUrl).then(() => {
@@ -19,4 +20,7 @@ app.use(express.json());
 app.use("/api/blogs", blogRouter);
 app.use("/api/users", userRouter);
 app.use("/api/login", loginRouter);
+
+app.use(middleware.unknownEndpoint);
+app.use(middleware.errorHandler);
 module.exports = app;

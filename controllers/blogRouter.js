@@ -1,6 +1,8 @@
 const blogRouter = require("express").Router();
 const Blog = require("../models/blogSchema");
 const User = require("../models/userSchema");
+const jwt = require("jsonwebtoken");
+const config = require("../utils/config");
 
 blogRouter.get("/", async (req, res, next) => {
   try {
@@ -12,15 +14,32 @@ blogRouter.get("/", async (req, res, next) => {
   }
 });
 
+const getTokenFrom = (request) => {
+  const authorization = request.get("authorization");
+  if (authorization && authorization.toLowerCase().startsWith("bearer ")) {
+    return authorization.substring(7);
+  }
+  return null;
+};
+
 blogRouter.post("/", async (req, res, next) => {
   try {
     if (req.body.likes === undefined) {
       req.body.likes = 0;
     }
+    const alreadyExists = await Blog.find({ title: req.body.title });
+    if (alreadyExists.length > 0) {
+      res.status(400).json({ error: "Blog already exists" });
+    }
     if (!(req.body.title && req.body.url)) {
-      res.status(400).end();
+      res.status(400).json({ error: " title and url are required" });
     } else {
-      const user = await User.findById("62f21d10991102dce8decc93");
+      const token = getTokenFrom(req);
+      const decodedToken = jwt.verify(token, config.SECRET);
+      if (!decodedToken.id) {
+        res.status(401).json({ error: "token missing or invalid" });
+      }
+      const user = await User.findById(decodedToken.id);
 
       const blog = new Blog({
         title: req.body.title,
