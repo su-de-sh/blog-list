@@ -4,7 +4,12 @@ const userRouter = require("express").Router();
 
 userRouter.get("/", async (req, res, next) => {
   try {
-    const data = await User.find().populate("blogs");
+    const data = await User.find().populate("blogs", {
+      title: 1,
+      author: 1,
+      url: 1,
+      likes: 1,
+    });
 
     res.status(200).json(data);
   } catch (error) {
@@ -35,6 +40,7 @@ userRouter.post("/", async (req, res, next) => {
     });
 
     const savedUser = await user.save();
+
     res.status(201).json(savedUser);
   } catch (error) {
     next(error);

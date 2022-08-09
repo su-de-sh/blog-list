@@ -1,9 +1,10 @@
 const blogRouter = require("express").Router();
 const Blog = require("../models/blogSchema");
+const User = require("../models/userSchema");
 
 blogRouter.get("/", async (req, res, next) => {
   try {
-    const data = await Blog.find();
+    const data = await Blog.find().populate("user", { username: 1, name: 1 });
 
     res.status(200).json(data);
   } catch (error) {
@@ -19,8 +20,18 @@ blogRouter.post("/", async (req, res, next) => {
     if (!(req.body.title && req.body.url)) {
       res.status(400).end();
     } else {
-      const blog = new Blog(req.body);
+      const user = await User.findById("62f21d10991102dce8decc93");
+
+      const blog = new Blog({
+        title: req.body.title,
+        author: req.body.author,
+        url: req.body.url,
+        likes: req.body.likes,
+        user: user.id,
+      });
       const data = await blog.save();
+      user.blogs = user.blogs.concat(data.id);
+      await user.save();
       res.status(201).json(data);
     }
   } catch (error) {
