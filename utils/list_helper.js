@@ -61,4 +61,16 @@ const mostLikes = (blogs) => {
   return { author: authorWithMostLikes, likes: hashMap[authorWithMostLikes] };
 };
 
-module.exports = { dummy, totalLikes, favoriteBlog, mostBlogs, mostLikes };
+const User = require("../models/userSchema");
+const userInDb = async () => {
+  return await User.find({});
+};
+
+module.exports = {
+  dummy,
+  totalLikes,
+  favoriteBlog,
+  mostBlogs,
+  mostLikes,
+  userInDb,
+};
