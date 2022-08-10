@@ -29,7 +29,7 @@ blogRouter.post("/", async (req, res, next) => {
     } else {
       const token = req.token;
       const decodedToken = jwt.verify(token, config.SECRET);
-      console.log("decodedToken", decodedToken);
+
       if (!decodedToken.id) {
         res.status(401).json({ error: "token missing or invalid" });
       }
