@@ -16,6 +16,8 @@ blogRouter.get("/", async (req, res, next) => {
 
 blogRouter.post("/", async (req, res, next) => {
   try {
+    // console.log("req.body", req.body);
+    // console.log("req.token", req.token);
     if (req.body.likes === undefined) {
       req.body.likes = 0;
     }
@@ -27,10 +29,14 @@ blogRouter.post("/", async (req, res, next) => {
     } else {
       const token = req.token;
       const decodedToken = jwt.verify(token, config.SECRET);
+      console.log("decodedToken", decodedToken);
       if (!decodedToken.id) {
         res.status(401).json({ error: "token missing or invalid" });
       }
       const user = await User.findById(decodedToken.id);
+      if (!user) {
+        res.status(401).json({ error: "token missing or invalid" });
+      }
 
       const blog = new Blog({
         title: req.body.title,
@@ -54,13 +60,18 @@ blogRouter.delete("/:id", async (req, res, next) => {
     const id = req.params.id;
 
     const blog = await Blog.findById(id);
+
     if (!blog) {
       res.status(404).json({ error: "this id doesnot exist." });
     }
 
-    if (blog.user.toString() === req.user) {
+    if (blog.user.toString() === req.user.id) {
       await Blog.findByIdAndRemove(id);
-      res.status(204).end();
+      res.status(204).end("blog deleted");
+    } else {
+      res
+        .status(401)
+        .json({ error: "you are not authorized to delete this blog" });
     }
   } catch (error) {
     next(error);
@@ -75,11 +86,17 @@ blogRouter.put("/:id", async (req, res, next) => {
       url: req.body.url,
       likes: req.body.likes,
     };
+    const blog = await Blog.findById(req.params.id);
+    if (!blog) {
+      res.status(404).json({ error: "this id doesnot exist." });
+    }
 
-    const data = await Blog.findByIdAndUpdate(req.params.id, newBlog, {
-      new: true,
-    });
-    res.status(200).json(data);
+    if (blog.user.toString() === req.user.id) {
+      const data = await Blog.findByIdAndUpdate(req.params.id, newBlog, {
+        new: true,
+      });
+      res.status(200).json(data);
+    }
   } catch (error) {
     next(error);
   }
