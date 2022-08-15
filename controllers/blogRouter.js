@@ -87,6 +87,7 @@ blogRouter.put("/:id", async (req, res, next) => {
       likes: req.body.likes,
     };
     const blog = await Blog.findById(req.params.id);
+
     if (!blog) {
       res.status(404).json({ error: "this id doesnot exist." });
     }
@@ -96,6 +97,10 @@ blogRouter.put("/:id", async (req, res, next) => {
         new: true,
       });
       res.status(200).json(data);
+    } else {
+      res
+        .status(404)
+        .json({ error: "you are not authorized to update this blog" });
     }
   } catch (error) {
     next(error);
