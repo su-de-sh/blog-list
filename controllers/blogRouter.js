@@ -92,16 +92,16 @@ blogRouter.put("/:id", async (req, res, next) => {
       res.status(404).json({ error: "this id doesnot exist." });
     }
 
-    if (blog.user.toString() === req.user.id) {
-      const data = await Blog.findByIdAndUpdate(req.params.id, newBlog, {
-        new: true,
-      });
-      res.status(200).json(data);
-    } else {
-      res
-        .status(404)
-        .json({ error: "you are not authorized to update this blog" });
-    }
+    // if (blog.user.toString() === req.user.id) {
+    const data = await Blog.findByIdAndUpdate(req.params.id, newBlog, {
+      new: true,
+    });
+    res.status(200).json(data);
+    // } else {
+    //   res
+    //     .status(404)
+    //     .json({ error: "you are not authorized to update this blog" });
+    // }
   } catch (error) {
     next(error);
   }
