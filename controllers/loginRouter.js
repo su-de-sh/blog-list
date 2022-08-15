@@ -7,6 +7,7 @@ const config = require("../utils/config");
 loginRouter.post("/", async (req, res) => {
   const { username, password } = req.body;
   const user = await User.findOne({ username });
+
   if (!user) {
     return res.status(400).json({ error: "user not found" });
   }
@@ -19,7 +20,9 @@ loginRouter.post("/", async (req, res) => {
     id: user._id,
   };
   const token = jwt.sign(userForToken, config.SECRET);
-  res.status(200).json({ token, username: user.username, name: user.name });
+  res
+    .status(200)
+    .json({ token, username: user.username, name: user.name, id: user._id });
 });
 
 module.exports = loginRouter;
