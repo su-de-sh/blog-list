@@ -23,7 +23,7 @@ app.use("/api/users", userRouter);
 app.use("/api/login", loginRouter);
 app.use("/api/blogs", blogRouter);
 if (process.env.NODE_ENV === "test") {
-  const testingRouter = require("./controllers/testing");
+  const testingRouter = require("./controllers/testingRouter");
   app.use("/api/testing", testingRouter);
 }
 
