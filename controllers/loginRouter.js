@@ -9,11 +9,11 @@ loginRouter.post("/", async (req, res) => {
   const user = await User.findOne({ username });
 
   if (!user) {
-    return res.status(400).json({ error: "user not found" });
+    return res.status(400).json({ error: "wrong credentials" });
   }
   const isCorrect = await bcrypt.compare(password, user.passwordHash);
-  if (!isCorrect) {
-    return res.status(400).json({ error: "wrong password" });
+  if (!user || !isCorrect) {
+    return res.status(400).json({ error: "wrong credentials" });
   }
   const userForToken = {
     username: user.username,
