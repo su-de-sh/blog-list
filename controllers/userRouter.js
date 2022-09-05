@@ -22,12 +22,12 @@ userRouter.post("/", async (req, res, next) => {
     const { username, name, password } = req.body;
 
     if (username.length < 3 || password.length < 3) {
-      res.status(400).end();
+      res.status(400).send("try long username or password");
     }
 
     const existingUser = await User.findOne({ username });
     if (existingUser) {
-      res.status(400).end();
+      res.status(400).send("user already exists!!");
     }
 
     const saltRounds = 10;
