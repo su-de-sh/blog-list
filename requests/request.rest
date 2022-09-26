@@ -24,10 +24,10 @@ Content-Type: application/json
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhbmRoeWEiLCJpZCI6IjYyZjNlYmYzNzMzNTEwNzkzZDhmNDM5YiIsImlhdCI6MTY2MDE1MjgyMn0.Qt_FUD3eOzz89-RfLTT-k1Dij54nrbd9vMYHlRIZM58
 
 {
-    "title":"Power of sleeping",
-    "author":"Sudesh",
+    "title":"Power of madness",
+    "author":"Mandip",
     "url":"sush.com",
-    "likes":120
+    "likes":1201
 }
 
 
@@ -52,3 +52,6 @@ Content-Type: application/json
 {
     "comment":"lets test this"
 }
+
+###
+GET http://localhost:3001/api/blogs/62f39316e46ba5e06088cec5/comments

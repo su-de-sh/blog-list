@@ -7,6 +7,7 @@ const blogRouter = require("./controllers/blogRouter");
 const userRouter = require("./controllers/userRouter");
 const loginRouter = require("./controllers/loginRouter");
 const middleware = require("./utils/middleware");
+const commentRouter = require("./controllers/commentRouter");
 
 const mongoUrl = config.MONGODB_URI;
 mongoose.connect(mongoUrl).then(() => {
@@ -22,6 +23,7 @@ app.use(middleware.userExtractor);
 app.use("/api/users", userRouter);
 app.use("/api/login", loginRouter);
 app.use("/api/blogs", blogRouter);
+app.use("/api/blogs", commentRouter);
 if (process.env.NODE_ENV === "test") {
   const testingRouter = require("./controllers/testingRouter");
   app.use("/api/testing", testingRouter);

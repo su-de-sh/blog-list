@@ -78,13 +78,13 @@ blogRouter.delete("/:id", async (req, res, next) => {
   }
 });
 
-blogRouter.post("/:id/comments", async (req, res, next) => {
-  try {
-    res.send("posted a comment");
-  } catch (err) {
-    next(err);
-  }
-});
+// blogRouter.post("/:id/comments", async (req, res, next) => {
+//   try {
+//     res.send("posted a comment");
+//   } catch (err) {
+//     next(err);
+//   }
+// });
 
 blogRouter.put("/:id", async (req, res, next) => {
   try {
