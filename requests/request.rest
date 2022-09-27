@@ -50,7 +50,7 @@ POST http://localhost:3001/api/blogs/62f39316e46ba5e06088cec5/comments
 Content-Type: application/json
 
 {
-    "comment":"lets test this"
+    "comment":"lets jdslfkskjs this"
 }
 
 ###
